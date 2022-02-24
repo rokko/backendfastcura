@@ -1,7 +1,7 @@
 const express = require ('express')
 const app = express()
 const http = require('http').createServer(app);
-http.listen(8080)
+http.listen(process.env.PORT||8080)
 
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
