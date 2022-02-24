@@ -26,6 +26,9 @@ app.get('/' , aut, (req,res)=>{
 })
 
 
+git commit -am "node_modules be gone!"
+
+git push origin main
 app.post('/login', async (req,res)=>{
     const email = req.body.email
     const password = req.body.password
