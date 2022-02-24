@@ -1,7 +1,7 @@
 const express = require ('express')
 const app = express()
 const http = require('http').createServer(app);
-http.listen(443)
+http.listen(3001)
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
