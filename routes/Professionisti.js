@@ -83,7 +83,7 @@ router.get('/ottieni-curriculum', auth,async(req,res)=>{
 })
 
 router.get('/info', auth, async(req,res,next)=>{
-    const utente = await Professionista.findOne({idProfessionista:req.user._id})
+    const utente = await Professionista.findOne({_id:req.user._id})
     res.json(utente)
 })
 

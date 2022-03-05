@@ -1,7 +1,9 @@
 const express = require ('express')
 const app = express()
 const http = require('http').createServer(app);
-http.listen(process.env.PORT||8080)
+http.listen(3001)
+const swaggerJsDoc = require('swagger-jsdoc')
+const swaggerUI = require('swagger-ui-express')
 
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
@@ -13,6 +15,23 @@ const aut = require('./middlewares/login')
 const Cliente = require('./models/Clienti')
 const Professionista = require('./models/Professionista')
 const io = require('socket.io')(http)
+
+const swaggerOptions={
+    swaggerDefinition: {
+        info: {
+            title:'API',
+            description : ' Informazioni API',
+            servers:['http://localhost:3001']
+        }
+    },
+    apis: ['app.js']
+};
+
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions)
+
+app.use('/api', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
+
 io.on('connection', (socket) => { /* socket object may be used to send specific messages to the new connected client */
     socket.emit('ciao',('hello world'))
     socket.on('ecco', ()=> console.log('ciao'))
@@ -26,7 +45,15 @@ app.get('/' , aut, (req,res)=>{
 })
 
 
-
+/**
+ * @swagger
+ * /login:
+ *  post:
+ *    description: Login
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
 app.post('/login', async (req,res)=>{
     const email = req.body.email
     const password = req.body.password
