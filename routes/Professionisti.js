@@ -62,7 +62,7 @@ router.post('/crea-appuntamento',async  (req,res)=> {
     res.json({message:'ok', appuntamento:salvaAppuntamento})
 })
 router.post('/modifica-abbonamento', auth, async (req,res,next)=>{
-    const abbonamentoDaModificare = await Abbonamento.findOne({ idProfessionista: req.user._id})
+    const abbonamentoDaModificare = await Abbonamento.findOne({ id_professionista: req.user._id})
 
     res.json({ok:'ok'})
 })
@@ -71,14 +71,14 @@ router.post('/lasciarecensione', async( req,res)=>{
 })
 
 router.get('/lista-appuntamenti',auth, async(req,res,next)=>{
-    const listaAppuntamenti = await Appuntamento.find({idProfessionista:req.user._id})
+    const listaAppuntamenti = await Appuntamento.find({id_professionista:req.user._id})
     if(!!listaAppuntamenti) res.json(listaAppuntamenti)
     else res.json({no: "ko"})
 
 })
 
 router.get('/ottieni-curriculum', auth,async(req,res)=>{
-    const curriculum = await Curriculum.findOne({idProfessionista:req.user._id})
+    const curriculum = await Curriculum.findOne({id_professionista:req.user._id})
     if (curriculum) res.json(curriculum)
 })
 
@@ -88,7 +88,7 @@ router.get('/info', auth, async(req,res,next)=>{
 })
 
 router.post('/modificacurriculum', auth, async(req,res, next)=>{
-    const curriculumDaAggiornare = await Curriculum.findOne({idProfessionista: req.user._id})
+    const curriculumDaAggiornare = await Curriculum.findOne({codiceProfessionista: req.user._id})
     if(!!curriculumDaAggiornare) {
         curriculumDaAggiornare.titolodistudio = req.body.titolodistudio;
         curriculumDaAggiornare.master = req.body.master;
@@ -102,13 +102,13 @@ router.post('/modificacurriculum', auth, async(req,res, next)=>{
     }else{
         const nuovoCurriculum = new Curriculum({
 
-            altro: String,
+            altro: req.body.altro,
             titolo :req.body.titolodistudio,
             master:req.body.master,
             esperienze : req.body.esperienze,
             titolodistudio :req.body.altro,
             numeroiscrizione :req.body.numeroOrdine,
-            codiceprofessionista : req.user._id
+            codiceProfessionista : req.user._id
 
         })
 
