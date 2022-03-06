@@ -1,7 +1,7 @@
 const express = require ('express')
 const app = express()
 const http = require('http').createServer(app);
-http.listen(3001)
+http.listen(process.env.PORT||8080)
 const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUI = require('swagger-ui-express')
 
