@@ -1,7 +1,9 @@
 const express = require ('express')
 const app = express()
 const http = require('http').createServer(app);
-http.listen(process.env.PORT||8080)
+http.listen(process.env.PORT||8080, ()=> {
+    console.log(`Connesso su porta ${process.env.PORT}`)
+})
 const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUI = require('swagger-ui-express')
 
@@ -11,49 +13,27 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const professionistaRoute = require('./routes/Professionisti')
 const clienteRoute = require('./routes/Clienti')
+const messaggiRoute = require('./routes/Messaggi')
 const aut = require('./middlewares/login')
 const Cliente = require('./models/Clienti')
 const Professionista = require('./models/Professionista')
 const io = require('socket.io')(http)
-
-const swaggerOptions={
-    swaggerDefinition: {
-        info: {
-            title:'API',
-            description : ' Informazioni API',
-            servers:['http://localhost:3001']
-        }
-    },
-    apis: ['app.js']
-};
-
-
-const swaggerDocs = swaggerJsDoc(swaggerOptions)
-
-app.use('/api', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
+require("dotenv").config();
+app.use(bodyParser.json())
+app.use(cors())
 
 io.on('connection', (socket) => { /* socket object may be used to send specific messages to the new connected client */
     socket.emit('ciao',('hello world'))
     socket.on('ecco', ()=> console.log('ciao'))
 });
-require("dotenv").config();
-app.use(bodyParser.json())
-app.use(cors())
+
+
 
 app.get('/' , aut, (req,res)=>{
     res.json({ciao:'ciao'})
 })
 
 
-/**
- * @swagger
- * /login:
- *  post:
- *    description: Login
- *    responses:
- *      '200':
- *        description: A successful response
- */
 app.post('/login', async (req,res)=>{
     const email = req.body.email
     const password = req.body.password
@@ -77,11 +57,11 @@ app.post('/login', async (req,res)=>{
 })
 app.use('/professionista', professionistaRoute)
 app.use('/cliente', clienteRoute)
-////routes
+app.use('/message', messaggiRoute)
 
 
 mongoose.connect('mongodb+srv://fastcurautente:Fastcura22@cluster0.tvrmv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&ssl=true',{useNewUrlParser: true}, (x) => {
-    console.log(x)
+    console.log('Connesso Mongo DB')
 })
 
 
