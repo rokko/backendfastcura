@@ -4,10 +4,9 @@ const Message = require('../models/Message')
 const auth = require('../middlewares/login')
 const router = express()
 
-router.post('/get-message', auth, async(req,res,next)=>{
+router.post('/get-message',  async(req,res,next)=>{
 
     const listaMessaggi= await Message.find({contatti_id:req.body.contatti_id})
-
     res.send(listaMessaggi)
     
 })
