@@ -4,8 +4,7 @@ const http = require('http').createServer(app);
 http.listen(process.env.PORT||8080, ()=> {
     console.log(`Connesso su porta ${process.env.PORT}`)
 })
-const swaggerJsDoc = require('swagger-jsdoc')
-const swaggerUI = require('swagger-ui-express')
+
 
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
