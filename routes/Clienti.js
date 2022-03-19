@@ -1,9 +1,12 @@
 const express = require('express')
 const Cliente = require('../models/Clienti')
+const Contatto = require('../models/Contatti')
 const Curriculum = require('../models/Curriculm')
 const router = express()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const auth = require('../middlewares/login')
+
 
 
 router.post('/signup', async (req,res) => {
@@ -48,5 +51,24 @@ router.post('/infocurriculum',async (req,res)=>{
 
 })
 
+
+router.post('/nuovo-contatto', auth, async (req,res,next)=>{
+
+    const ceContatto = await Contatto.findOne({id_professionista:req.body.id_professionista, id_cliente:req.user._id})
+    if (!!ceContatto){
+        res.send(ceContatto)
+    }
+        else{
+           const nuovoContatto= await new Contatto({
+                id_professionista: req.body.id_professionista,
+                id_cliente: req.user._id
+            })
+
+            await nuovoContatto.save()
+            res.send(nuovoContatto)
+        }
+    })
+
+ 
 
 module.exports = router

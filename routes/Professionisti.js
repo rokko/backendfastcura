@@ -4,16 +4,25 @@ const Appuntamento = require('../models/Appuntamento')
 const Abbonamento = require('../models/Abbonamento')
 const Curriculum = require('../models/Curriculm')
 const Cliente = require('../models/Clienti')
+const Contatto = require('../models/Contatti')
 const auth = require('../middlewares/login')
 
 const router = express()
 const bcrypt = require('bcrypt')
 
+router.post('/ottieni-contatti',auth, async(req,res,next)=>{
+    const contatti = await Contatto.find({id_professionista: req.user._id})
+    res.send(contatti)
+    
+})
 
+router.post('/info-cliente', async(req,res)=>{
+    const clienteInfo = await Cliente.findOne({_id:req.body.id_cliente})
+    res.send(clienteInfo)
+})
 
 
 router.post('/signup', async (req,res) => {
-    console.log(req.body)
 
     const nuovoProfessionista = new Professionista({
         nome:req.body.nome,

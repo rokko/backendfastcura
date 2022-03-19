@@ -13,18 +13,24 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const professionistaRoute = require('./routes/Professionisti')
 const clienteRoute = require('./routes/Clienti')
-const messaggiRoute = require('./routes/Messaggi')
+const messaggiRoute = require('./routes/Chat')
 const aut = require('./middlewares/login')
 const Cliente = require('./models/Clienti')
 const Professionista = require('./models/Professionista')
-const io = require('socket.io')(http)
+const io = require('socket.io')(http,{cors: {
+    origin: '*',
+  }})
 require("dotenv").config();
 app.use(bodyParser.json())
 app.use(cors())
 
 io.on('connection', (socket) => { /* socket object may be used to send specific messages to the new connected client */
-    socket.emit('ciao',('hello world'))
-    socket.on('ecco', ()=> console.log('ciao'))
+console.log('dèf')
+socket.on('ciao', ()=>{console.log('cika')})
+socket.on('invio-messaggio',()=>{
+    console.log('ok')
+    socket.emit('aggiornaachat')
+})
 });
 
 
@@ -57,7 +63,7 @@ app.post('/login', async (req,res)=>{
 })
 app.use('/professionista', professionistaRoute)
 app.use('/cliente', clienteRoute)
-app.use('/message', messaggiRoute)
+app.use('/chat', messaggiRoute)
 
 
 mongoose.connect('mongodb+srv://fastcurautente:Fastcura22@cluster0.tvrmv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&ssl=true',{useNewUrlParser: true}, (x) => {
