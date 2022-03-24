@@ -59,9 +59,10 @@ router.post('/ricerca', async(req,res)=>{
 })
 router.post('/crea-appuntamento',async  (req,res)=> {
     const nuovoAppuntamento = await  new Appuntamento({
+        nome_appuntamento: req.body.nome,
         data: req.body.data,
         id_cliente : req.body.id_cliente,
-        id_profesionista : req.body.id_profesionista,
+        id_professionista : req.user._id,
         metodo_pagamento : req.body.metodo_pagamento,
         totale: req.body.totale,
     })
@@ -70,6 +71,7 @@ router.post('/crea-appuntamento',async  (req,res)=> {
 
     res.json({message:'ok', appuntamento:salvaAppuntamento})
 })
+
 router.post('/modifica-abbonamento', auth, async (req,res,next)=>{
     const abbonamentoDaModificare = await Abbonamento.findOne({ id_professionista: req.user._id})
 

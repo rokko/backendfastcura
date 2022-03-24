@@ -6,6 +6,7 @@ const AppuntamentoSchema = mongoose.Schema({
     id_professionista : String,
     metodo_pagamento : String,
     totale: Number,
+    conferma : Boolean,
 })
 
 module.exports = mongoose.model('Appuntamento', AppuntamentoSchema)
