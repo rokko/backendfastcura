@@ -8,6 +8,7 @@ const AppuntamentoSchema = mongoose.Schema({
     totale: Number,
     conferma : Boolean,
     id_conversazione : String,
+    nome : String,
 
 })
 
