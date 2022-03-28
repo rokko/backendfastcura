@@ -53,7 +53,7 @@ router.post('/nomecliente', async(req,res)=> {
 
     const infoCliente =await Cliente.findOne({_id:req.body.idcliente})
     const infoProfessionista = await Professionista.findOne({_id:req.body.idcliente})
-    if (!infoCliente) res.json({nome:infoCliente.nome,cognome:infoCliente.cognome})
+    if (!!infoCliente.nome) res.json({nome:infoCliente.nome,cognome:infoCliente.cognome})
    else res.json({nome:infoProfessionista.nome,cognome:infoProfessionista.cognome})
 })
 router.post('/ricerca', async(req,res)=>{
