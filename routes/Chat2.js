@@ -7,7 +7,6 @@ const router = express()
 router.post('/get-message', auth, async(req,res,next)=>{
 
     const listaMessaggi= await Message.find({contatti_id:req.body.contatti_id})
-    console.log(listaMessaggi)
     res.send(listaMessaggi)
     
 })

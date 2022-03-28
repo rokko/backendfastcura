@@ -23,14 +23,6 @@ require("dotenv").config();
 app.use(bodyParser.json())
 app.use(cors())
 
-io.on('connection', (socket) => { /* socket object may be used to send specific messages to the new connected client */
-console.log('dèf')
-socket.on('ciao', ()=>{console.log('cika')})
-socket.on('invio-messaggio',()=>{
-    console.log('ok')
-    socket.emit('aggiornaachat')
-})
-});
 
 
 
@@ -42,9 +34,7 @@ app.get('/' , aut, (req,res)=>{
 app.post('/login', async (req,res)=>{
     const email = req.body.email
     const password = req.body.password
-    console.log(email,password)
     const loginCliente = await Cliente.findOne({email : email , passw:password})
-    console.log(loginCliente)
     const loginProfessionista = await Professionista.findOne({email:email, passw:password})
     if (!!loginCliente) {
         const accessToken = jwt.sign(loginCliente.toJSON(), process.env.ACCESS_TOKEN_SECRET)

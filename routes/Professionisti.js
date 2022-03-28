@@ -46,7 +46,6 @@ router.post('/signup', async (req,res) => {
         assicurato : req.body.assicurato,
         precedente : req.body.precedente})
         const utenteSalvato = await nuovoProfessionista.save()
-        console.log(utenteSalvato)
         res.json({result:'ok', message:utenteSalvato})
     })
 router.post('/nomecliente', async(req,res)=> {
@@ -112,7 +111,6 @@ router.post('/modificacurriculum', auth, async(req,res, next)=>{
         curriculumDaAggiornare.esperienze = req.body.esperienze;
         curriculumDaAggiornare.altro = req.body.altro;
         const salvaCurriculum = await curriculumDaAggiornare.save()
-        console.log('FATTO')
 
         res.json(salvaCurriculum)
     }else{
