@@ -57,8 +57,23 @@ router.post('/info-appuntamento', async (req,res)=>{
     res.json(appuntamento)
 } )
 
+router.post('/accettaofferta', async(req,res) => {
 
+    const appuntamento = await Appuntamento.findOne({_id:req.body.idappuntamento})
+    appuntamento.conferma= 1
+    await appuntamento.save()
+    res.json({messagge:'Accettato'})
+})
 
+router.post('/rifiutaofferta', async ( req,res)=> {
+
+    const appuntamento = await Appuntamento.findOne({_id:req.body.idappuntamento})
+    appuntamento.conferma=2
+    await appuntamento.save()
+
+    res.json({message:'Rifiutato'})
+
+})
 
 router.post('/nuovo-contatto', auth, async (req,res,next)=>{
 

@@ -6,7 +6,7 @@ const AppuntamentoSchema = mongoose.Schema({
     id_professionista : String,
     metodo_pagamento : String,
     totale: String,
-    conferma : Boolean,
+    conferma : Number,
     id_conversazione : String,
     nome : String,
 
