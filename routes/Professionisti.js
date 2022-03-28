@@ -62,9 +62,11 @@ router.post('/crea-appuntamento',async  (req,res)=> {
         nome_appuntamento: req.body.nome,
         data: req.body.data,
         id_cliente : req.body.id_cliente,
-        id_professionista : req.user._id,
+        id_professionista : req.body.id_professionista,
         metodo_pagamento : req.body.metodo_pagamento,
         totale: req.body.totale,
+        conferma :req.body.conferma,
+        id_conversazione : req.body.id_conversazione,
     })
 
     const salvaAppuntamento  = await nuovoAppuntamento.save()
