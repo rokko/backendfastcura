@@ -50,8 +50,11 @@ router.post('/signup', async (req,res) => {
         res.json({result:'ok', message:utenteSalvato})
     })
 router.post('/nomecliente', async(req,res)=> {
+
     const infoCliente =await Cliente.findOne({_id:req.body.idcliente})
-    res.json({nome:infoCliente.nome,cognome:infoCliente.cognome})
+    const infoProfessionista = await Professionista.findOne({_id:req.body.idcliente})
+    if (!infoCliente) res.json({nome:infoCliente.nome,cognome:infoCliente.cognome})
+   else res.json({nome:infoProfessionista.nome,cognome:infoProfessionista.cognome})
 })
 router.post('/ricerca', async(req,res)=>{
     const listaProfessionista = await Professionista.find({codicepostale:req.body.codicepostale, professione:req.body.professione})

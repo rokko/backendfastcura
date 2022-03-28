@@ -35,7 +35,7 @@ socket.on('invio-messaggio',()=>{
 
 
 app.get('/' , aut, (req,res)=>{
-    res.json({ciao:'ciao'})
+    res.json({ciao:'hi'})
 })
 
 
