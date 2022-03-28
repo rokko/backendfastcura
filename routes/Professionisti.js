@@ -61,7 +61,7 @@ router.post('/ricerca', async(req,res)=>{
 })
 router.post('/crea-appuntamento',async  (req,res)=> {
     const nuovoAppuntamento = await  new Appuntamento({
-        nome_appuntamento: req.body.nome,
+        nome: req.body.nome,
         data: req.body.data,
         id_cliente : req.body.id_cliente,
         id_professionista : req.body.id_professionista,

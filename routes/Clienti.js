@@ -2,6 +2,7 @@ const express = require('express')
 const Cliente = require('../models/Clienti')
 const Contatto = require('../models/Contatti')
 const Curriculum = require('../models/Curriculm')
+const Appuntamento = require('../models/Appuntamento')
 const router = express()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
@@ -51,8 +52,16 @@ router.post('/infocurriculum',async (req,res)=>{
 
 })
 
+router.post('/info-appuntamento', async (req,res)=>{
+    const appuntamento = await Appuntamento.findOne({id_conversazione:req.body.id_conversazione})
+    res.json(appuntamento)
+} )
+
+
+
 
 router.post('/nuovo-contatto', auth, async (req,res,next)=>{
+
 
     const ceContatto = await Contatto.findOne({id_professionista:req.body.id_professionista, id_cliente:req.user._id})
     if (!!ceContatto){
