@@ -80,7 +80,7 @@ router.post('/nuovo-contatto', auth, async (req,res,next)=>{
 
     const ceContatto = await Contatto.findOne({id_professionista:req.body.id_professionista, id_cliente:req.user._id})
     if (ceContatto!==null){
-        res.send(ceContatto)
+        res.json(ceContatto)
     }
         else{
            const nuovoContatto= await new Contatto({
@@ -89,7 +89,7 @@ router.post('/nuovo-contatto', auth, async (req,res,next)=>{
             })
 
             await nuovoContatto.save()
-            res.send(nuovoContatto)
+            res.json(nuovoContatto)
         }
     })
 
