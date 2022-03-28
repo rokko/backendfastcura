@@ -79,7 +79,7 @@ router.post('/nuovo-contatto', auth, async (req,res,next)=>{
 
 
     const ceContatto = await Contatto.findOne({id_professionista:req.body.id_professionista, id_cliente:req.user._id})
-    if (!!ceContatto){
+    if (ceContatto!==null){
         res.send(ceContatto)
     }
         else{
