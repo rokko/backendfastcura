@@ -75,23 +75,25 @@ router.post('/rifiutaofferta', async ( req,res)=> {
 
 })
 
-router.post('/nuovo-contatto', auth, async (req,res,next)=>{
+router.post('/ottienicontatto', auth, async (req,res)=>{
 
 
     const ceContatto = await Contatto.findOne({id_professionista:req.body.id_professionista, id_cliente:req.user._id})
     if (ceContatto!==null){
         res.json(ceContatto)
     }
-        else{
-           const nuovoContatto= await new Contatto({
-                id_professionista: req.body.id_professionista,
-                id_cliente: req.user._id
-            })
-
-            await nuovoContatto.save()
-            res.json(nuovoContatto)
-        }
+})
+router.post('/nuovo-contatto', auth, async(req,res)=>{
+    const nuovoContatto= await new Contatto({
+        id_professionista: req.body.id_professionista,
+        id_cliente: req.user._id
     })
+
+    await nuovoContatto.save()
+    res.json(nuovoContatto)
+})
+
+    
 
  
 
