@@ -56,7 +56,7 @@ router.post('/nomecliente', async(req,res)=> {
    else res.json({nome:infoProfessionista.nome,cognome:infoProfessionista.cognome})
 })
 router.post('/ricerca', async(req,res)=>{
-    const listaProfessionista = await Professionista.find({codicepostale:req.body.codicepostale, professione:req.body.professione})
+    const listaProfessionista = await Professionista.find({citta:req.body.citta, professione:req.body.professione})
         res.json({message:'ok', professionisti:listaProfessionista})
 })
 router.post('/crea-appuntamento',async  (req,res)=> {
