@@ -62,6 +62,13 @@ router.post('/info-appuntamento', async (req,res)=>{
     res.json(appuntamento)
 } )
 
+
+router.post('/lista-appuntamenti',auth, async (req,res)=>{
+    const listaAppuntamenti = await Appuntamento.find({id_cliente:req.user._id})
+    if(!!listaAppuntamenti) res.json(listaAppuntamenti)
+    else res.json({no: "ko"})
+})
+
 router.post('/accettaofferta', async(req,res) => {
 
     const appuntamento = await Appuntamento.findOne({_id:req.body.idappuntamento})
