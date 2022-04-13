@@ -52,6 +52,11 @@ router.post('/infocurriculum',async (req,res)=>{
 
 })
 
+router.post('/infocliente',auth, async(req,res)=>{
+    const clienteInfo = await Cliente.findOne({_id:req.user._id})
+    if(!!clienteInfo) res.json(clienteInfo)
+})
+
 router.post('/info-appuntamento', async (req,res)=>{
     const appuntamento = await Appuntamento.findOne({id_conversazione:req.body.id_conversazione})
     res.json(appuntamento)
