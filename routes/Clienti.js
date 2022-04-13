@@ -50,9 +50,21 @@ router.post('/ottieni-profilo', auth, async(req,res)=>{
 router.post('/infocurriculum',async (req,res)=>{
 
     const RicercaCurriculum = await Curriculum.findOne({codiceProfessionista:req.body.idprofessionista})
-
     if(!!RicercaCurriculum) res.json({ris:1,RicercaCurriculum})
     else res.json({ris:2})
+
+})
+
+router.post('/aggiorna-profilo', auth, (req,res)=>{
+    const profiloDaAggiornare = await Cliente.findOne({_id:req.user._id})
+    profiloDaAggiornare.nome = req.body.nome
+    profiloDaAggiornare.cognome = req.body.cognome
+    profiloDaAggiornare.cap = req.body.cap
+    profiloDaAggiornare.numero = req.body.numero
+    profiloDaAggiornare.sesso = req.body.sesso
+    await profiloDaAggiornare.save()
+
+    res.json({message:'ok'})
 
 })
 
