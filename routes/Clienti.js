@@ -59,8 +59,8 @@ router.post('/aggiorna-profilo', auth, async (req,res)=>{
     const profiloDaAggiornare = await Cliente.findOne({_id:req.user._id})
     profiloDaAggiornare.nome = req.body.nome
     profiloDaAggiornare.cognome = req.body.cognome
-    profiloDaAggiornare.cap = req.body.cap
-    profiloDaAggiornare.numero = req.body.numero
+    profiloDaAggiornare.codicepostale = req.body.cap
+    profiloDaAggiornare.number = req.body.numero
     profiloDaAggiornare.sesso = req.body.sesso
     await profiloDaAggiornare.save()
 
