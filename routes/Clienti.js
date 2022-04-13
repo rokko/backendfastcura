@@ -42,7 +42,11 @@ router.post('/login', (req,res)=> {
 
   
 })
-
+router.post('/ottieni-profilo', auth, async(req,res)=>{
+    const profiloutente = await Cliente.findOne({_id: req.user._id})
+    if (!!profiloutente) res.json(profiloutente)
+    else res.json({message: 'ko'})
+})
 router.post('/infocurriculum',async (req,res)=>{
 
     const RicercaCurriculum = await Curriculum.findOne({codiceProfessionista:req.body.idprofessionista})
