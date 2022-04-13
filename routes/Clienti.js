@@ -55,7 +55,7 @@ router.post('/infocurriculum',async (req,res)=>{
 
 })
 
-router.post('/aggiorna-profilo', auth, (req,res)=>{
+router.post('/aggiorna-profilo', auth, async (req,res)=>{
     const profiloDaAggiornare = await Cliente.findOne({_id:req.user._id})
     profiloDaAggiornare.nome = req.body.nome
     profiloDaAggiornare.cognome = req.body.cognome
