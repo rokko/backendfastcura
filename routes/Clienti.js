@@ -26,6 +26,18 @@ router.post('/signup', async (req,res) => {
     res.json({message:'ok', utente:salvaUtente})
 })
 
+
+let post = router.post('/aggiorna-password', auth, async (req, res)=>{
+    const cliente = await Cliente.findOne({_id:req.user._id})
+    if (cliente.password === req.body.passAttuale) {
+        cliente.password = req.body.nuova
+        await cliente.save()
+        res.json({message:1})
+    }else{
+        res.json({message:0})
+    }
+
+});
 router.post('/login', (req,res)=> {
     const cliente = {
         email : req.body.email,
@@ -61,7 +73,6 @@ router.post('/aggiorna-profilo', auth, async (req,res)=>{
     profiloDaAggiornare.cognome = req.body.cognome
     profiloDaAggiornare.codicepostale = req.body.cap
     profiloDaAggiornare.number = req.body.numero
-    profiloDaAggiornare.sesso = req.body.sesso
     await profiloDaAggiornare.save()
 
     res.json({message:'ok'})
