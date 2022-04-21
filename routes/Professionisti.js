@@ -94,7 +94,7 @@ router.get('/lista-appuntamenti',auth, async(req,res,next)=>{
 
 router.get('/ottieni-curriculum', auth,async(req,res)=>{
     const curriculum = await Curriculum.findOne({codiceProfessionista:req.user._id})
-    if (curriculum) res.json(curriculum)
+    if (curriculum) {res.json(curriculum)} else {res.json({data:1})}
 })
 
 router.get('/info', auth, async(req,res,next)=>{
