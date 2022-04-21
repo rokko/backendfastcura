@@ -117,10 +117,9 @@ router.post('/modificacurriculum', auth, async(req,res, next)=>{
         const nuovoCurriculum = new Curriculum({
 
             altro: req.body.altro,
-            titolo :req.body.titolodistudio,
             master:req.body.master,
             esperienze : req.body.esperienze,
-            titolodistudio :req.body.altro,
+            titolodistudio :req.body.titolodistudio,
             numeroiscrizione :req.body.numeroOrdine,
             codiceProfessionista : req.user._id
 
