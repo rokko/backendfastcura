@@ -8,6 +8,7 @@ const Contatto = require('../models/Contatti')
 const auth = require('../middlewares/login')
 const multer = require('multer')
 const router = express()
+const Avatar = require('../models/Avatar')
 
 
 router.post('/ottieni-contatti',auth, async(req,res,next)=>{
