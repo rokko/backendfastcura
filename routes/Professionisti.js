@@ -19,7 +19,7 @@ router.post('/ottieni-contatti',auth, async(req,res,next)=>{
 
 router.post('/inserisci-avatar',auth, async(req,res)=>{
     const avatar = await Avatar.findOne({id_professionista:req.user._id})
-
+console.log(req.body)
     if (avatar) {
         avatar.posizione = req.body.url
         await avatar.save()
