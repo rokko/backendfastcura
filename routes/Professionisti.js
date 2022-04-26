@@ -30,6 +30,7 @@ router.post('/inserisci-avatar',auth, async(req,res)=>{
             id_professionista:req.user._id,
             posizione:req.body.url
         })
+        await nuovoAvatar.save()
 
         res.json({message:'Nuovo',nuovoAvatar})
     }
