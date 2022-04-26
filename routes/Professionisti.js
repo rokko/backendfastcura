@@ -6,9 +6,9 @@ const Curriculum = require('../models/Curriculm')
 const Cliente = require('../models/Clienti')
 const Contatto = require('../models/Contatti')
 const auth = require('../middlewares/login')
-
+const multer = require('multer')
 const router = express()
-const bcrypt = require('bcrypt')
+
 
 router.post('/ottieni-contatti',auth, async(req,res,next)=>{
     const contatti = await Contatto.find({id_professionista: req.user._id})
@@ -16,6 +16,16 @@ router.post('/ottieni-contatti',auth, async(req,res,next)=>{
     
 })
 
+
+router.post('/avatar', auth, async(req,res)=>{
+
+    const avatar = await Avatar.findOne({
+        id_professionista : req.user._id
+    })
+
+    if (avatar) return res.json({message:1, avatar}) 
+    else return res.json({message:0})
+})
 router.post('/info-cliente', async(req,res)=>{
     const clienteInfo = await Cliente.findOne({_id:req.body.id_cliente})
     res.send(clienteInfo)
