@@ -17,6 +17,16 @@ router.post('/ottieni-contatti',auth, async(req,res,next)=>{
     
 })
 
+
+router.post('/recupera-avatar', async(req,res)=>{
+    const avatar = await Avatar.findOne({id_professionista: req.body.id_professionista})
+    if(avatar) {
+        res.json({message:1, avatar})
+    }
+    else{
+        res.json({message:0})
+    }
+})
 router.post('/inserisci-avatar',auth, async(req,res)=>{
     const avatar = await Avatar.findOne({id_professionista:req.user._id})
 console.log(req.body)
