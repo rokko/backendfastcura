@@ -38,7 +38,7 @@ app.post('/login', async (req,res)=>{
     const loginProfessionista = await Professionista.findOne({email:email, passw:password})
     if (!!loginCliente) {
         const accessToken = jwt.sign(loginCliente.toJSON(), process.env.ACCESS_TOKEN_SECRET)
-        res.json({message:0, accessToken:accessToken})
+        res.json({messagge:0, accessToken:accessToken})
 
     }
     else if (!!loginProfessionista){
