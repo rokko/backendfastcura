@@ -64,6 +64,15 @@ router.post('/avatar', auth, async(req,res)=>{
     if (avatar) return res.json({message:1, avatar}) 
     else return res.json({message:0})
 })
+
+router.post('/find-avatar',async(req,res => {
+    const avatar = await Avatar.findOne({
+        id_professionista : req.body.id_professionista
+    })
+
+    if (avatar) return res.json({message:1, avatar}) 
+    else return res.json({message:0})
+}))
 router.post('/info-cliente', async(req,res)=>{
     const clienteInfo = await Cliente.findOne({_id:req.body.id_cliente})
     res.send(clienteInfo)
@@ -160,8 +169,8 @@ router.get('/ottieni-curriculum', auth,async(req,res)=>{
     if (curriculum) {res.json(curriculum)} else {res.json({data:1})}
 })
 
-router.get('/info', auth, async(req,res,next)=>{
-    const utente = await Professionista.findOne({_id:req.user._id})
+router.post('/info', async(req,res,next)=>{
+    const utente = await Professionista.findOne({_id:req.body.id_cliente})
     res.json(utente)
 })
 
