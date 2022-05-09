@@ -9,6 +9,16 @@ const auth = require('../middlewares/login')
 const multer = require('multer')
 const router = express()
 const Avatar = require('../models/Avatar')
+const nodemailer = require('nodemailer');
+
+let transporter = nodemailer.createTransport({
+       host: 'smtp.gmail.com',
+       port: 465,
+       auth: {
+           user: "fastcura.responding@gmail.com",
+           pass: "Accountprova1"
+       }
+})
 
 
 router.post('/ottieni-contatti',auth, async(req,res,next)=>{
@@ -84,6 +94,21 @@ router.post('/signup', async (req,res) => {
         assicurato : req.body.assicurato,
         precedente : req.body.precedente})
         const utenteSalvato = await nuovoProfessionista.save()
+
+
+        const message = {
+            from: "fastcura.responding@gmail.com",
+            to: req.body.email,
+            subject: "Iscrizione FASTCURA",
+            text: "Ti diamo il Benvenuto su Fastcura.it , vieni sul nostro sito inserisci il tuo curriculum e amplia il tuo mercato"
+        }
+        transporter.sendMail(message,(err, info)=>{
+            if (err) {
+              console.log(err)
+            } else {
+              console.log(info);
+            }
+        })
         res.json({result:'ok', message:utenteSalvato})
     })
 router.post('/nomecliente', async(req,res)=> {

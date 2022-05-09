@@ -8,6 +8,45 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const auth = require('../middlewares/login')
 
+const nodemailer = require('nodemailer');
+
+let transporter = nodemailer.createTransport({
+       host: 'smtp.gmail.com',
+       port: 465,
+       auth: {
+           user: "fastcura.responding@gmail.com",
+           pass: "Accountprova1"
+       }
+})
+
+router.post('/test', async(req,res)=>{
+    const message = {
+        from: "from-example@email.com",
+        to: "rocco.caricola89@gmail.com",
+        subject: "Iscrizione FASTCURA",
+        text: "Ti diamo il Benvenuto su Fastcura.it , vieni sul nostro sito per trovare il professionista piu adatto alle tue necessita"
+    }
+
+    transporter.sendMail(message,(err, info)=>{
+        if (err) {
+          console.log(err)
+        } else {
+          console.log(info);
+        }
+})
+
+res.json({message:'ok'})
+})
+
+router.get('/info', auth, async(req,res,next)=>{
+    const utente = await Cliente.findOne({_id:req.user._id})
+    res.json(utente)
+})
+router.post('/ottieni-chat',auth, async(req,res)=>{
+    const contatti = await Contatto.find({id_cliente: req.user._id})
+    res.send(contatti)
+})
+
 
 
 router.post('/signup', async (req,res) => {
@@ -22,7 +61,23 @@ router.post('/signup', async (req,res) => {
         codicepostale : req.body.cap,
         number : req.body.cellulare,
     })
+    const message = {
+        from: "fastcura.responding@gmail.com",
+        to: req.body.email,
+        subject: "Iscrizione FASTCURA",
+        text: "Ti diamo il Benvenuto su Fastcura.it , vieni sul nostro sito per trovare il professionista piu adatto alle tue necessita"
+    }
+    
+    
+
     const salvaUtente = await cliente.save()
+    transporter.sendMail(message,(err, info)=>{
+        if (err) {
+          console.log(err)
+        } else {
+          console.log(info);
+        }
+    })
     res.json({message:'ok', utente:salvaUtente})
 })
 
@@ -32,12 +87,33 @@ let post = router.post('/aggiorna-password', auth, async (req, res)=>{
     if (cliente.password === req.body.passAttuale) {
         cliente.password = req.body.nuova
         await cliente.save()
-        res.json({message:1})
+        const message = {
+            from: "from-example@email.com",
+            to: cliente.email,
+            subject: "Modifica Password",
+            text: "La modifica della password è avvenuta con successo, la tua nuova password è " + req.body.nuova + "conservala in maniera sicura"
+        }
+
+        transporter.sendMail(message,(err, info)=>{
+            if (err) {
+              console.log(err)
+            } else {
+              console.log(info);
+            }})
+
+            res.json({message:1})
+
+    
     }else{
         res.json({message:0})
     }
 
-});
+
+   
+
+    
+})
+
 router.post('/login', (req,res)=> {
     const cliente = {
         email : req.body.email,
