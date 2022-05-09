@@ -65,14 +65,14 @@ router.post('/avatar', auth, async(req,res)=>{
     else return res.json({message:0})
 })
 
-router.post('/find-avatar',async(req,res => {
+router.post('/find-avatar', async(req,res)=> {
     const avatar = await Avatar.findOne({
         id_professionista : req.body.id_professionista
     })
 
     if (avatar) return res.json({message:1, avatar}) 
     else return res.json({message:0})
-}))
+})
 router.post('/info-cliente', async(req,res)=>{
     const clienteInfo = await Cliente.findOne({_id:req.body.id_cliente})
     res.send(clienteInfo)
