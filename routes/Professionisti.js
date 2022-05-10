@@ -173,7 +173,10 @@ router.post('/info', async(req,res,next)=>{
     const utente = await Professionista.findOne({_id:req.body.id_cliente})
     res.json(utente)
 })
-
+router.post('/info2',auth, async(req,res,next)=>{
+    const utente = await Professionista.findOne({_id:req.user._id})
+    res.json(utente)
+})
 router.post('/modificacurriculum', auth, async(req,res, next)=>{
     const curriculumDaAggiornare = await Curriculum.findOne({codiceProfessionista: req.user._id})
     if(!!curriculumDaAggiornare) {
