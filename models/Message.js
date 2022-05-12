@@ -5,7 +5,8 @@ const MessageSchema = mongoose.Schema({
     contatti_id:String,
     sender: String,
     message:String,
-    reader : Boolean,
+    sendreader : Boolean,
+    ricreader : Boolean,
 }
 )
 
