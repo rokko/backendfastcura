@@ -222,6 +222,7 @@ router.post('/nuovo-contatto', auth, async (req,res,next)=>{
             voto : req.body.voto
         })
 
+        await nuovoFeedback.save()
     })
 
     router.post('/ottieni-feedback', async(req,res)=> {
