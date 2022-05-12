@@ -3,6 +3,7 @@ const Cliente = require('../models/Clienti')
 const Contatto = require('../models/Contatti')
 const Curriculum = require('../models/Curriculm')
 const Appuntamento = require('../models/Appuntamento')
+const Feedback = require('../models/Feedback')
 const router = express()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
@@ -18,6 +19,8 @@ let transporter = nodemailer.createTransport({
            pass: "Accountprova1"
        }
 })
+
+
 
 router.post('/test', async(req,res)=>{
     const message = {
@@ -212,5 +215,18 @@ router.post('/nuovo-contatto', auth, async (req,res,next)=>{
     })
 
  
+
+    router.post('/inserisci-feedback', async(req,res)=>{
+        const nuovoFeedback = new Feedback({
+            id_professionista:req.body.id_professionista,
+            voto : req.body.voto
+        })
+
+    })
+
+    router.post('/ottieni-feedback', async(req,res)=> {
+        const professionistaFeedback = await Feedback.find({id_professionista:req.body.id_professionista})
+        res.json(professionistaFeedback)
+    })
 
 module.exports = router

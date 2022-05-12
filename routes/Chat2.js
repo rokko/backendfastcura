@@ -7,15 +7,27 @@ const router = express()
 router.post('/get-message',  async(req,res,next)=>{
 
     const listaMessaggi= await Message.find({contatti_id:req.body.contatti_id})
+    const messagginonletti = listaMessaggi.filter((x)=> x.reader === false) 
+    messagginonletti.map(async (x)=>{ 
+        x.reader == true
+    await x.save()})
+
     res.send(listaMessaggi)
     
+})
+
+router.post('/ottieni-ultimo', async(req,res,next)=> {
+    const listaMessaggi= await Message.find({contatti_id:req.body.contatti_id})
+    res.send(listaMessaggi)
+
 })
 
 router.post('/send-message',auth, async(req,res,next)=>{
     const nuovoMessaggio =await new Message({
         sender: req.user._id,
         contatti_id: req.body.contatti_id,
-        message: req.body.message
+        message: req.body.message,
+        reader : false,
     })
 
     await nuovoMessaggio.save()
