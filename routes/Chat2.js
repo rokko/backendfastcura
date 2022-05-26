@@ -46,11 +46,13 @@ router.post("/send-message", auth, async (req, res, next) => {
   });
 
   const contatto = await Contatto.findOne({ _id: req.body.contatti_id });
-
+  console.log("CONTATTO", contatto);
   if (contatto.id_cliente === req.user._id) {
     const utenteDaRicevere = await Professionista.findOne({
       _id: contatto.id_professionista,
     });
+
+    console.log("UTENTE", utenteDaRicevere);
     const message = {
       from: "from-example@email.com",
       to: utenteDaRicevere.email,
@@ -69,6 +71,8 @@ router.post("/send-message", auth, async (req, res, next) => {
     const utenteDaRicevere = await Cliente.findOne({
       _id: contatto.id_cliente,
     });
+
+    console.log("UTENTE", utenteDaRicevere);
     const message = {
       from: "from-example@email.com",
       to: utenteDaRicevere.email,
