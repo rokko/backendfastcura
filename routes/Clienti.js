@@ -10,6 +10,7 @@ const bcrypt = require("bcrypt");
 const auth = require("../middlewares/login");
 
 const nodemailer = require("nodemailer");
+const Professionista = require("../models/Professionista");
 
 let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -211,6 +212,25 @@ router.post("/inserisci-feedback", async (req, res) => {
   const nuovoFeedback = new Feedback({
     id_professionista: req.body.id_professionista,
     voto: req.body.voto,
+  });
+
+  const prof = await Professionista.findOne({
+    _id: req.body.id_professionista,
+  });
+
+  const message = {
+    from: "from-example@email.com",
+    to: prof.email,
+    subject: "Nuovo Feedback",
+    text: "Ciao ${prof.nome} ${prof.cognome}, hai ricevuto un nuovo feedback su Fastcura.it",
+  };
+
+  transporter.sendMail(message, (err, info) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(info);
+    }
   });
 
   console.log(nuovoFeedback);
