@@ -46,9 +46,28 @@ router.post("/send-message", auth, async (req, res, next) => {
   });
 
   const contatto = await Contatto.findOne({ _id: req.body.contatti_id });
+
   if (contatto.id_cliente === req.user._id) {
     const utenteDaRicevere = await Professionista.findOne({
       _id: contatto.id_professionista,
+    });
+    const message = {
+      from: "from-example@email.com",
+      to: utenteDaRicevere.email,
+      subject: "Hai ricevuto un nuovo messaggio",
+      text: `Ciao ${utenteDaRicevere.nome} ${utenteDaRicevere.cognome}  , ti è appena arrivato un messaggio su Fastcura , dai un'occhiata`,
+    };
+
+    transporter.sendMail(message, (err, info) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(info);
+      }
+    });
+  } else {
+    const utenteDaRicevere = await Cliente.findOne({
+      _id: contatto.id_cliente,
     });
     const message = {
       from: "from-example@email.com",
