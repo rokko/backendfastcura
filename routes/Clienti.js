@@ -240,8 +240,8 @@ router.post("/inserisci-feedback", async (req, res) => {
 
 router.post("/mail-utente", async (req, res) => {
   const emailUtente = await Cliente.findOne({ email: req.body.email });
-  console.log(emailUtente);
-  res.json({ risult: !!emailUtente ? true : false });
+  console.log("TEST", emailUtente);
+  res.json({ risult: !!emailUtente.email ? true : false });
 });
 
 router.post("/ottieni-feedback", async (req, res) => {
