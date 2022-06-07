@@ -238,6 +238,12 @@ router.post("/inserisci-feedback", async (req, res) => {
   await nuovoFeedback.save();
 });
 
+router.post("/mail-utente", async (req, res) => {
+  const emailUtente = await Cliente.findOne({ email: req.body.email });
+
+  res.json({ risult: !!emailUtente ? true : false });
+});
+
 router.post("/ottieni-feedback", async (req, res) => {
   const professionistaFeedback = await Feedback.find({
     id_professionista: req.body.id_professionista,
