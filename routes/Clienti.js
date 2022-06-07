@@ -238,7 +238,7 @@ router.post("/inserisci-feedback", async (req, res) => {
   await nuovoFeedback.save();
 });
 
-router.post("/mail-utente", async (req, res) => {
+router.get("/mail-utente", async (req, res) => {
   const emailUtente = await Cliente.findOne({ email: req.body.email });
   console.log("TEST", emailUtente);
   res.json({ risult: !!emailUtente ? true : false });
