@@ -191,7 +191,7 @@ router.post("/info2", auth, async (req, res, next) => {
 router.post("/mail", async (req, res) => {
   const emailUtente = await Professionista.findOne({ email: req.body.email });
 
-  res.json({ risult: !!emailUtente.email ? true : false });
+  res.json({ risult: !!emailUtente ? true : false });
 });
 router.post("/modificacurriculum", auth, async (req, res, next) => {
   const curriculumDaAggiornare = await Curriculum.findOne({
