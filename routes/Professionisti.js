@@ -187,6 +187,11 @@ router.post("/info2", auth, async (req, res, next) => {
   const utente = await Professionista.findOne({ _id: req.user._id });
   res.json(utente);
 });
+router.post("/mail-utente", async (req, res) => {
+  const emailUtente = await Professionista.findOne({ email: req.body.email });
+  console.log("TEST", emailUtente);
+  res.json({ risult: !!emailUtente ? true : false });
+});
 
 router.post("/mail", async (req, res) => {
   const emailUtente = await Professionista.findOne({ email: req.body.email });
