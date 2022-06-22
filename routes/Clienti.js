@@ -53,7 +53,7 @@ router.post("/signup", async (req, res) => {
   const cliente = await new Cliente({
     nome: req.body.nome,
     cognome: req.body.cognome,
-    email: req.body.email,
+    email: req.body.email.toLowerCase(),
     passw: req.body.password,
     sesso: req.body.sesso,
     data: req.body.data,
