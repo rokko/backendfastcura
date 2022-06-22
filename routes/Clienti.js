@@ -133,6 +133,7 @@ router.post("/infocurriculum", async (req, res) => {
   const RicercaCurriculum = await Curriculum.findOne({
     codiceProfessionista: req.body.idprofessionista,
   });
+  console.log(RicercaCurriculum);
   if (!!RicercaCurriculum) res.json({ ris: 1, RicercaCurriculum });
   else res.json({ ris: 2 });
 });
