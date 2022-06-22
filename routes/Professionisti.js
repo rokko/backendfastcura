@@ -78,7 +78,7 @@ router.post("/signup", async (req, res) => {
   const nuovoProfessionista = new Professionista({
     nome: req.body.nome,
     cognome: req.body.cognome,
-    email: req.body.email,
+    email: req.body.email.toLowerCase(),
     password: req.body.password,
     datadinascita: req.body.data,
     sesso: req.body.sesso,
@@ -194,7 +194,9 @@ router.post("/mail-utente", async (req, res) => {
 });
 
 router.post("/mail", async (req, res) => {
-  const emailUtente = await Professionista.findOne({ email: req.body.email });
+  const emailUtente = await Professionista.findOne({
+    email: req.body.email.toLowerCase(),
+  });
 
   res.json({ risult: !!emailUtente ? true : false });
 });
