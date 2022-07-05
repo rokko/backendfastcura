@@ -98,7 +98,7 @@ router.post("/signup", async (req, res) => {
   const utenteSalvato = await nuovoProfessionista.save();
 
   const message = {
-    from: "fastcura.responding@gmail.com",
+    from: "amministrazione@fastcura.com",
     to: req.body.email,
     subject: "Iscrizione FASTCURA",
     text: "Ti diamo il Benvenuto su Fastcura.it , vieni sul nostro sito inserisci il tuo curriculum e amplia il tuo mercato",

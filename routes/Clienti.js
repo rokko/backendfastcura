@@ -22,7 +22,7 @@ let transporter = nodemailer.createTransport({
 
 router.post("/test", async (req, res) => {
   const message = {
-    from: "from-example@email.com",
+    from: "amministrazione@fastcura.com",
     to: "rocco.caricola89@gmail.com",
     subject: "Iscrizione FASTCURA",
     text: "Ti diamo il Benvenuto su Fastcura.it , vieni sul nostro sito per trovare il professionista piu adatto alle tue necessita",
@@ -60,7 +60,7 @@ router.post("/signup", async (req, res) => {
     number: req.body.cellulare,
   });
   const message = {
-    from: "fastcura.responding@gmail.com",
+    from: "amministrazione@fastcura.com",
     to: req.body.email,
     subject: "Iscrizione FASTCURA",
     text: "Ti diamo il Benvenuto su Fastcura.it , vieni sul nostro sito per trovare il professionista piu adatto alle tue necessita",
@@ -83,7 +83,7 @@ let post = router.post("/aggiorna-password", auth, async (req, res) => {
     cliente.password = req.body.nuova;
     await cliente.save();
     const message = {
-      from: "from-example@email.com",
+      from: "amministrazione@fastcura.com",
       to: cliente.email,
       subject: "Modifica Password",
       text:
@@ -220,7 +220,7 @@ router.post("/inserisci-feedback", async (req, res) => {
   });
 
   const message = {
-    from: "from-example@email.com",
+    from: "amministrazione@fastcura.com",
     to: prof.email,
     subject: "Nuovo Feedback",
     text: "Ciao ${prof.nome} ${prof.cognome}, hai ricevuto un nuovo feedback su Fastcura.it",

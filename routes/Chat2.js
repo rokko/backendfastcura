@@ -53,7 +53,7 @@ router.post("/send-message", auth, async (req, res, next) => {
 
     console.log("UTENTE", utenteDaRicevere);
     const message = {
-      from: "from-example@email.com",
+      from: "amministrazione@fastcura.com",
       to: utenteDaRicevere.email,
       subject: "Hai ricevuto un nuovo messaggio",
       text: `Ciao ${utenteDaRicevere.nome} ${utenteDaRicevere.cognome}  , ti è appena arrivato un messaggio su Fastcura , dai un'occhiata`,
@@ -73,7 +73,7 @@ router.post("/send-message", auth, async (req, res, next) => {
 
     console.log("UTENTE", utenteDaRicevere);
     const message = {
-      from: "from-example@email.com",
+      from: "amministrazione@fastcura.com",
       to: utenteDaRicevere.email,
       subject: "Hai ricevuto un nuovo messaggio",
       text: `Ciao ${utenteDaRicevere.nome} ${utenteDaRicevere.cognome}  , ti è appena arrivato un messaggio su Fastcura , dai un'occhiata`,
