@@ -18,6 +18,14 @@ let transporter = nodemailer.createTransport({
     pass: "Amlodipina.1",
   },
 });
+
+router.post("/pro", auth, async (req, res) => {
+  const profes = await Professionista.findOne({
+    id_professionista: req.user._id,
+  });
+  if (!!profes) res.json({ ris: 0 });
+  else res.json({ ris: 1 });
+});
 router.post("/ottieni-contatti", auth, async (req, res, next) => {
   const contatti = await Contatto.find({ id_professionista: req.user._id });
   res.send(contatti);
