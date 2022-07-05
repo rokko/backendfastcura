@@ -138,6 +138,7 @@ router.post("/infocurriculum", async (req, res) => {
   else res.json({ ris: 2 });
 });
 
+router.post("/assistenza", async (req, res) => {});
 router.post("/aggiorna-profilo", auth, async (req, res) => {
   const profiloDaAggiornare = await Cliente.findOne({ _id: req.user._id });
   profiloDaAggiornare.nome = req.body.nome;
@@ -240,7 +241,9 @@ router.post("/inserisci-feedback", async (req, res) => {
 });
 
 router.post("/mail-utente", async (req, res) => {
-  const emailUtente = await Cliente.findOne({ email: req.body.email });
+  const emailUtente = await Cliente.findOne({
+    email: req.body.email.toLowerCase(),
+  });
   console.log("TEST", emailUtente);
   res.json({ risult: !!emailUtente ? true : false });
 });
