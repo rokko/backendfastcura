@@ -8,11 +8,10 @@ const router = express();
 const nodemailer = require("nodemailer");
 
 let transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
+  service: "Outlook365",
   auth: {
-    user: "fastcura.responding@gmail.com",
-    pass: "Accountprova1",
+    user: "amministrazione@fastcura.com",
+    pass: "Amlodipina.1",
   },
 });
 
