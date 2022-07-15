@@ -61,6 +61,24 @@ router.post("/password", async (req, res) => {
   }
 });
 
+router.post("/assistenza", async (req, res) => {
+  const message = {
+    from: "amministrazione@fastcura.com",
+    to: "amministrazione@fastcura.com",
+    subject: "Assistenza",
+    text: `Cliente : ${req.body.nome} ${req.body.cognome} email : ${req.body.email} richiesta${req.body.richiesta}`,
+  };
+  transporter.sendMail(message, (err, info) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(info);
+    }
+  });
+
+  res.json({ risposta: "Richiesta assistenza inviata" });
+});
+
 router.post("/pro", auth, async (req, res) => {
   const profes = await Professionista.findOne({
     id_professionista: req.user._id,
@@ -100,6 +118,7 @@ router.post("/inserisci-avatar", auth, async (req, res) => {
     res.json({ message: "Nuovo", nuovoAvatar });
   }
 });
+
 router.post("/avatar", auth, async (req, res) => {
   const avatar = await Avatar.findOne({
     id_professionista: req.user._id,
