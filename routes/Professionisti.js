@@ -19,6 +19,48 @@ let transporter = nodemailer.createTransport({
   },
 });
 
+router.post("/password", async (req, res) => {
+  const utente = await Professionista.findOne({ email: req.body.email });
+  console.log(utente);
+  if (!!utente) {
+    console.log("entrato");
+    const message = {
+      from: "amministrazione@fastcura.com",
+      to: utente.email,
+      subject: "Recupero Password FASTCURA",
+      text: `Salve ${utente.nome} la sua ultima password è ${utente.password}`,
+    };
+    transporter.sendMail(message, (err, info) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(info);
+      }
+    });
+    res.json({ risposta: "Richiesta Inviata" });
+  } else {
+    console.log("entrato 2");
+    const cliente = await Cliente.findOne({ email: req.body.email });
+    console.log(cliente);
+    if (!!cliente) {
+      const message = {
+        from: "amministrazione@fastcura.com",
+        to: cliente.email,
+        subject: "Recupero Password FASTCURA",
+        text: `Salve ${cliente.nome} la sua ultima password è ${cliente.passw}`,
+      };
+      transporter.sendMail(message, (err, info) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(info);
+        }
+      });
+      res.json({ risposta: "Richiesta Inviata" });
+    } else res.json({ risposta: "Email inesistente" });
+  }
+});
+
 router.post("/pro", auth, async (req, res) => {
   const profes = await Professionista.findOne({
     id_professionista: req.user._id,
