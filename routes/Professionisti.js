@@ -137,6 +137,7 @@ router.post("/find-avatar", async (req, res) => {
   else return res.json({ message: 0 });
 });
 router.post("/info-cliente", async (req, res) => {
+  console.log(req.body.id_cliente);
   const clienteInfo = await Cliente.findOne({ _id: req.body.id_cliente });
   res.send(clienteInfo);
 });
@@ -182,9 +183,12 @@ router.post("/signup", async (req, res) => {
   res.json({ result: "ok", message: utenteSalvato });
 });
 router.post("/nomecliente", async (req, res) => {
-  const infoCliente = await Cliente.findOne({ _id: req.body.idcliente });
+  console.log(req.body.idcliente);
+  const infoCliente = await Cliente.findOne({
+    _id: req.body.idcliente.idcliente,
+  });
   const infoProfessionista = await Professionista.findOne({
-    _id: req.body.idcliente,
+    _id: req.body.idcliente.idcliente,
   });
   if (infoCliente != null)
     res.json({ nome: infoCliente.nome, cognome: infoCliente.cognome });
