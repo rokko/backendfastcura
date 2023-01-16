@@ -15,11 +15,7 @@ const messaggiRoute = require("./routes/Chat2");
 const aut = require("./middlewares/login");
 const Cliente = require("./models/Clienti");
 const Professionista = require("./models/Professionista");
-const io = require("socket.io")(http, {
-  cors: {
-    origin: "*",
-  },
-});
+
 require("dotenv").config();
 app.use(bodyParser.json());
 app.use(cors());
@@ -56,22 +52,21 @@ app.use("/professionista", professionistaRoute);
 app.use("/cliente", clienteRoute);
 app.use("/chat", messaggiRoute);
 
-var mysql      = require('mysql');
+var mysql = require("mysql");
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'dbuser',
-  password : 's3kreee7'
+  host: "localhost",
+  user: "dbuser",
+  password: "s3kreee7",
 });
 
 connection.connect();
 
-connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+connection.query("SELECT 1 + 1 AS solution", function (err, rows, fields) {
   if (err) throw err;
-  console.log('The solution is: ', rows[0].solution);
+  console.log("The solution is: ", rows[0].solution);
 });
 
 connection.end();
-
 
 mongoose.connect(
   "mongodb+srv://fastcurautente:Fastcura22@cluster0.tvrmv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&ssl=true",
