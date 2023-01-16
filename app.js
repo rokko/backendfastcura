@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
-http.listen(process.env.PORT || 8080, () => {
+http.listen(() => {
   console.log(`Connesso su porta ${process.env.PORT}`);
 });
 
@@ -51,22 +51,6 @@ app.post("/login", async (req, res) => {
 app.use("/professionista", professionistaRoute);
 app.use("/cliente", clienteRoute);
 app.use("/chat", messaggiRoute);
-
-var mysql = require("mysql");
-var connection = mysql.createConnection({
-  host: "localhost",
-  user: "dbuser",
-  password: "s3kreee7",
-});
-
-connection.connect();
-
-connection.query("SELECT 1 + 1 AS solution", function (err, rows, fields) {
-  if (err) throw err;
-  console.log("The solution is: ", rows[0].solution);
-});
-
-connection.end();
 
 mongoose.connect(
   "mongodb+srv://fastcurautente:Fastcura22@cluster0.tvrmv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&ssl=true",
