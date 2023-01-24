@@ -1,8 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
-http.listen(() => {
-  console.log(`Connesso su porta ${process.env.PORT}`);
+http.listen("3000", () => {
+  console.log(`Connesso su porta `);
 });
 
 const mongoose = require("mongoose");
