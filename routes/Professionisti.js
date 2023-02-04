@@ -170,24 +170,17 @@ router.post("/signup", async (req, res) => {
     precedente: req.body.precedente,
   });
   const utenteSalvato = await nuovoProfessionista.save();
-
-  const request = require("request");
-  request.post(
-    "https://textbelt.com/text",
-    {
-      form: {
-        phone: nuovoProfessionista.number,
-        message:
-          "Benvenuto nella fastcura family😄 Da ora preparati perché le tue giornate saranno ricche di appuntamenti! Per qualsiasi dubbio non esitare a contattarci 🙂",
-        key: "4288d1e08d4acffcc621a78ebba58da8a61c9742sxfNo2GI00S9DSnzm5pqZ2tnT",
-      },
-    },
-    (err, httpResponse, body) => {
-      console.log(err);
-      console.log(httpResponse);
-      console.log(JSON.parse(body));
-    }
-  );
+  const axios = require("axios");
+  axios
+    .post("https://textbelt.com/text", {
+      phone: `+39${req.body.cellulare}`,
+      message:
+        "Benvenuto nella fastcura family😄 Da ora preparati perché le tue giornate saranno ricche di appuntamenti! Per qualsiasi dubbio non esitare a contattarci 🙂",
+      key: "4288d1e08d4acffcc621a78ebba58da8a61c9742sxfNo2GI00S9DSnzm5pqZ2tnT",
+    })
+    .then((response) => {
+      console.log(response.data);
+    });
   const message = {
     from: "amministrazione@fastcura.com",
     to: req.body.email,
