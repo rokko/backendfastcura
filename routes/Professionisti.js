@@ -178,7 +178,7 @@ router.post("/signup", async (req, res) => {
       form: {
         phone: nuovoProfessionista.number,
         message: "Ciao e grazie per l iscrizione, Benvenuto su Fastcura.it!",
-        key: "fastcura",
+        key: "textbelt",
       },
     },
     (err, httpResponse, body) => {
