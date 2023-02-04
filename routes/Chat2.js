@@ -51,7 +51,22 @@ router.post("/send-message", auth, async (req, res, next) => {
       _id: contatto.id_professionista,
     });
 
-    console.log("UTENTE", utenteDaRicevere);
+    request.post(
+      "https://textbelt.com/text",
+      {
+        form: {
+          phone: cliente.number,
+          message:
+            "Ciao ,benvenuto su Fastcura.Se hai visitato il nostro sito è perché non te la passi bene.Stai tranquillo visita Fastcura.it troverai i migliori professionisti pronti ad aiutarti.E ricorda : nessun problema!Ci pensa Fastcura",
+          key: "textbelt",
+        },
+      },
+      (err, httpResponse, body) => {
+        console.log(err);
+        console.log(httpResponse);
+        console.log(JSON.parse(body));
+      }
+    );
     const message = {
       from: "amministrazione@fastcura.com",
       to: utenteDaRicevere.email,

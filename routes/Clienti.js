@@ -59,6 +59,22 @@ router.post("/signup", async (req, res) => {
     codicepostale: req.body.cap,
     number: req.body.cellulare,
   });
+  request.post(
+    "https://textbelt.com/text",
+    {
+      form: {
+        phone: cliente.number,
+        message:
+          "Ciao ,benvenuto su Fastcura.Se hai visitato il nostro sito è perché non te la passi bene.Stai tranquillo visita Fastcura.it troverai i migliori professionisti pronti ad aiutarti.E ricorda : nessun problema!Ci pensa Fastcura",
+        key: "4288d1e08d4acffcc621a78ebba58da8a61c9742sxfNo2GI00S9DSnzm5pqZ2tnT",
+      },
+    },
+    (err, httpResponse, body) => {
+      console.log(err);
+      console.log(httpResponse);
+      console.log(JSON.parse(body));
+    }
+  );
   const message = {
     from: "amministrazione@fastcura.com",
     to: req.body.email,
