@@ -13,6 +13,7 @@ const nodemailer = require("nodemailer");
 const axios = require("axios");
 const AUTH_KEY = "SMSHYNKB0M680LLB7FYP3";
 const AUTH_SECRET = "4V6P901A2SDISL4X9UPG0NGYT57N57H6";
+const text = require("textbelt");
 
 let transporter = nodemailer.createTransport({
   service: "Outlook365",
@@ -170,16 +171,14 @@ router.post("/signup", async (req, res) => {
   });
   const utenteSalvato = await nuovoProfessionista.save();
 
-  const response = await axios.post(
-    "https://SMSHYNKB0M680LLB7FYP3:4V6P901A2SDISL4X9UPG0NGYT57N57H6@api.smshosting.it/rest/api/user",
-    {
-      from: "Fastcura.it",
-      to: nuovoProfessionista.number,
-      text: "Bevenuto in Fastcura, grazie per la tua iscrizione!",
-      sandbox: "true",
+  text.sendText(
+    nuovoProfessionista.number,
+    "Grazie per la tua iscrizione, benvenuto su Fastcura.it!",
+    "intl",
+    (err) => {
+      console.log(err);
     }
   );
-  console.log(response);
   const message = {
     from: "amministrazione@fastcura.com",
     to: req.body.email,
