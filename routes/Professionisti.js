@@ -171,12 +171,18 @@ router.post("/signup", async (req, res) => {
   });
   const utenteSalvato = await nuovoProfessionista.save();
 
-  text.sendText(
-    nuovoProfessionista.number,
-    "Grazie per la tua iscrizione, benvenuto su Fastcura.it!",
-    "intl",
-    (err) => {
-      console.log(err);
+  const request = require("request");
+  request.post(
+    "https://textbelt.com/text",
+    {
+      form: {
+        phone: nuovoProfessionista.number,
+        message: "Ciao e grazie per l iscrizione, Benvenuto su Fastcura.it!",
+        key: "fastcura",
+      },
+    },
+    (err, httpResponse, body) => {
+      console.log(JSON.parse(body));
     }
   );
   const message = {
