@@ -11,7 +11,6 @@ const router = express();
 const Avatar = require("../models/Avatar");
 const nodemailer = require("nodemailer");
 const axios = require("axios");
-
 const AUTH_KEY = "SMSHYNKB0M680LLB7FYP3";
 const AUTH_SECRET = "4V6P901A2SDISL4X9UPG0NGYT57N57H6";
 
@@ -172,20 +171,15 @@ router.post("/signup", async (req, res) => {
   const utenteSalvato = await nuovoProfessionista.save();
 
   const response = await axios.post(
-    "https://api.smshosting.it/rest/api/sms/send",
-    new URLSearchParams({
+    "https://SMSHYNKB0M680LLB7FYP3:4V6P901A2SDISL4X9UPG0NGYT57N57H6@api.smshosting.it/rest/api/user",
+    {
       from: "Fastcura.it",
       to: nuovoProfessionista.number,
       text: "Bevenuto in Fastcura, grazie per la tua iscrizione!",
       sandbox: "true",
-    }),
-    {
-      headers: {
-        Authorization: AUTH_KEY,
-      },
     }
   );
-  console.log(this.response);
+  console.log(response);
   const message = {
     from: "amministrazione@fastcura.com",
     to: req.body.email,
