@@ -147,7 +147,7 @@ router.post("/info-cliente", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  console.log(req);
+  console.log(req.body);
   const nuovoProfessionista = new Professionista({
     nome: req.body.nome,
     cognome: req.body.cognome,
