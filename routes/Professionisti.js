@@ -147,6 +147,7 @@ router.post("/info-cliente", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
+  console.log(req);
   const nuovoProfessionista = new Professionista({
     nome: req.body.nome,
     cognome: req.body.cognome,
@@ -175,7 +176,7 @@ router.post("/signup", async (req, res) => {
     .post("https://textbelt.com/text", {
       phone: `+39${req.body.cellulare}`,
       message:
-        "Benvenuto nella fastcura family😄 Da ora preparati perché le tue giornate saranno ricche di appuntamenti! Per qualsiasi dubbio non esitare a contattarci 🙂",
+        "Benvenuto nella fastcura family😄 ,Da ora preparati perché le tue giornate saranno ricche di appuntamenti! Per qualsiasi dubbio non esitare a contattarci 🙂",
       key: "4288d1e08d4acffcc621a78ebba58da8a61c9742sxfNo2GI00S9DSnzm5pqZ2tnT",
     })
     .then((response) => {
