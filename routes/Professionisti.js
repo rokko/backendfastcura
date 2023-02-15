@@ -324,5 +324,10 @@ router.post("/modificacurriculum", auth, async (req, res, next) => {
     res.json(salvaNuovo);
   }
 });
+router.get("/getAll", async (req, res) => {
+  const listaUtenti = await Professionista.find();
+  console.log(listaUtenti);
+  res.json(listaUtenti);
+});
 
 module.exports = router;
