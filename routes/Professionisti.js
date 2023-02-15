@@ -182,6 +182,15 @@ router.post("/signup", async (req, res) => {
     .then((response) => {
       console.log(response.data);
     });
+  axios
+    .post("https://textbelt.com/text", {
+      phone: `+393467331448`,
+      message: `L'utente ${req.body.nome} ${req.body.cognome} cell ${req.body.cellulare}`,
+      key: "4288d1e08d4acffcc621a78ebba58da8a61c9742sxfNo2GI00S9DSnzm5pqZ2tnT",
+    })
+    .then((response) => {
+      console.log(response.data);
+    });
   const message = {
     from: "amministrazione@fastcura.com",
     to: req.body.email,
