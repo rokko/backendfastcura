@@ -169,6 +169,7 @@ router.post("/signup", async (req, res) => {
     numeroiscrizione: req.body.numeroiscrizione,
     assicurato: req.body.assicurato,
     precedente: req.body.precedente,
+    dataIscrizione: new Date(),
   });
   const utenteSalvato = await nuovoProfessionista.save();
   const axios = require("axios");
