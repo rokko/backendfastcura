@@ -8,6 +8,8 @@ const router = express();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const auth = require("../middlewares/login");
+const axios = require("axios");
+
 
 const nodemailer = require("nodemailer");
 const Professionista = require("../models/Professionista");
