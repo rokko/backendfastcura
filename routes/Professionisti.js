@@ -228,6 +228,14 @@ router.post("/ricerca", async (req, res) => {
     citta: req.body.citta,
     professione: req.body.professione,
   });
+
+  listaProfessionista.forEach((professionista)=>{
+    this.delete(professionista._id)
+    this.delete(professionista.dataIscrizione)
+    this.delete(professionista.datadinascita)
+    this.delete(professionista.password)
+  })
+  
   res.json({ message: "ok", professionisti: listaProfessionista });
 });
 router.post("/crea-appuntamento", async (req, res) => {
