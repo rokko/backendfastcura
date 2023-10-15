@@ -3,6 +3,7 @@ const Cliente = require("../models/Clienti");
 const Contatto = require("../models/Contatti");
 const Curriculum = require("../models/Curriculm");
 const Appuntamento = require("../models/Appuntamento");
+const ClienteVeloce= require("../models/ClienteVeloce");
 const Feedback = require("../models/Feedback");
 const router = express();
 const jwt = require("jsonwebtoken");
@@ -49,6 +50,18 @@ router.post("/ottieni-chat", auth, async (req, res) => {
   const contatti = await Contatto.find({ id_cliente: req.user._id });
   res.send(contatti);
 });
+router.post("/signup-veloce", async (req, res) => {
+  const cliente = await new ClienteVeloce({
+    nomecognome: req.body.nomecognome,
+    email: req.body.email.toLowerCase(),
+    data: new Date(),
+    number: req.body.cellulare,
+  });
+
+  const clienteVeloceSalvato = await cliente.save();
+  res.json({result:'SUCCESS'})
+  
+})
 
 router.post("/signup", async (req, res) => {
   const cliente = await new Cliente({
