@@ -229,14 +229,14 @@ router.post("/ricerca", async (req, res) => {
     professione: req.body.professione,
   });
 
-const newListaProfessionisti =   listaProfessionista.forEach((professionista)=>{
+const newListaProfessionisti =   listaProfessionista.map((professionista)=>{
     delete professionista._id 
     delete professionista.dataIscrizione
     delete professionista.datadinascita
     delete professionista.password
   })
 
-  res.json({ message: "ok", professionisti: listaProfessionista });
+  res.json({ message: "ok", professionisti: newListaProfessionisti });
 });
 router.post("/crea-appuntamento", async (req, res) => {
   const nuovoAppuntamento = await new Appuntamento({
