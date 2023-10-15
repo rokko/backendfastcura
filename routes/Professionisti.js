@@ -5,6 +5,7 @@ const Abbonamento = require("../models/Abbonamento");
 const Curriculum = require("../models/Curriculm");
 const Cliente = require("../models/Clienti");
 const Contatto = require("../models/Contatti");
+const Segnalazione = require("../models/Segnalazione")
 const auth = require("../middlewares/login");
 const multer = require("multer");
 const router = express();
@@ -238,6 +239,17 @@ const newListaProfessionisti =   listaProfessionista.map((professionista)=>{
 
   res.json({ message: "ok", professionisti: listaProfessionista });
 });
+router.post("/inviaSegnalazione", async (req, res) => {
+  const nuovoSegnalazione = await new Segnalazione({
+    data: new Date(),
+    citta: req.body.citta,
+    professione: req.body.professione,
+    email: req.body.email,
+  });
+  const segnalazioneSalvata = await nuovoSegnalazione.save();
+  res.json({ result: "ok", message: 'SUCCESS' })
+  })
+
 router.post("/crea-appuntamento", async (req, res) => {
   const nuovoAppuntamento = await new Appuntamento({
     nome: req.body.nome,
