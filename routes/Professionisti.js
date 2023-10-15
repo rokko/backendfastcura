@@ -236,7 +236,7 @@ const newListaProfessionisti =   listaProfessionista.map((professionista)=>{
     delete professionista.password
   })
 
-  res.json({ message: "ok", professionisti: newListaProfessionisti });
+  res.json({ message: "ok", professionisti: listaProfessionista });
 });
 router.post("/crea-appuntamento", async (req, res) => {
   const nuovoAppuntamento = await new Appuntamento({
