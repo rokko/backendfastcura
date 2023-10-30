@@ -228,8 +228,7 @@ router.post("/ricerca", async (req, res) => {
   const listaProfessionista = await Professionista.find({
     citta: req.body.citta,
     professione: req.body.professione,
-  })
-  ;
+  });
 
 const newListaProfessionisti =   listaProfessionista.map((professionista)=>{
     delete professionista._id 
