@@ -83,7 +83,7 @@ router.post('/crea-contatto',async(req,res)=>{
     nome_cliente: req.body.nomecognome,
     numero_cliente: req.body.cellulare,
     email_cliente : req.body.email,
-    data:newDate(),
+    data:new Date(),
     email_inviata:false
   })
 
