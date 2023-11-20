@@ -4,6 +4,7 @@ const Contatto = require("../models/Contatti");
 const Curriculum = require("../models/Curriculm");
 const Appuntamento = require("../models/Appuntamento");
 const ClienteVeloce= require("../models/ClienteVeloce");
+const ContattoCliente = require('../models/ContattoCliente')
 const Feedback = require("../models/Feedback");
 const router = express();
 const jwt = require("jsonwebtoken");
@@ -61,6 +62,34 @@ router.post("/signup-veloce", async (req, res) => {
   const clienteVeloceSalvato = await cliente.save();
   res.json({result:'SUCCESS'})
   
+})
+
+router.post('/crea-contatto',async(req,res)=>{
+  const professionista = await Professionista.findOne({
+    number: req.body.numero_professionista,
+  });
+
+
+
+  const newContatto = await new ContattoCliente({
+    id_professionista : professionista._id,
+    nome_professionista: professionista.nome,
+    cognome_professionista: professionista.cognome,
+    numero_professionista: professionista.number,
+    citta_professionista : professionista.citta,
+    professione_professionista : professionista.professione,
+    nome_cliente: req.body.nomecognome,
+    numero_cliente: req.body.cellulare,
+    email_cliente : req.body.email,
+    data:newDate(),
+    email_inviata:false
+  })
+
+  const contatto = await newContatto.save()
+  res.json({newContatto})
+   
+
+
 })
 
 router.post("/signup", async (req, res) => {
