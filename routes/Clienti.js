@@ -69,6 +69,8 @@ router.post('/crea-contatto',async(req,res)=>{
     number: req.body.numero_professionista,
   });
 
+  console.log(professionista)
+
 
 
   const newContatto = await new ContattoCliente({
